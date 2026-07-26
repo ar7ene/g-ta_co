@@ -1,40 +1,1049 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset = 'utf-8' lang = 'en'>
-<meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>  
-<meta name = 'description' content = 'gtparodlet'>
-<meta name = 'keywords' content = 'g'>
-<style>
-  body {width:100%;box-siing: border-box; font-family: 'Arial'; font-size: 15px, color: #000, float:left}
-  h1,h6 {color:green}
-  h5,h3 {color:red}
-  div, footer, header {width:100%; box-siing:border-box; float:left}
-  img {width:300px;height:auto;float:left;}
-  
-  .left, .right {width:50%}
-</style>
+  <meta charset="UTF-8" />
+  <title>Cinema Doppler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-main: #05060a;
+      --bg-section: #10131a;
+      --accent: #e50914;
+      --accent-soft: #ff4b5c;
+      --text-main: #ffffff;
+      --text-muted: #b3b3b3;
+      --border-soft: #262a33;
+      --card-bg: #151822;
+      --input-bg: #0c0f16;
+    }
 
-<body>  
-  <div class = 'left'> 
-    <h1>taco bomb</h1>
-    <h5>the taste explosion</h5>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <h3> Latest Product Launches</h3>
-    <p>Check out some of the many ways you can consume thousdands of calories of meat filler, powdered beans and processed cheese thi smonth.</p>
-    <p> All the intestinally devastating properties of Central Amerrtican street food with non of the taste!</p>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1f2b 0, #05060a 45%, #000000 100%);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: linear-gradient(to bottom, rgba(5, 6, 10, 0.95), rgba(5, 6, 10, 0.7));
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff 0, #ff4b5c 25%, #e50914 55%, #05060a 100%);
+      box-shadow: 0 0 18px rgba(229, 9, 20, 0.7);
+    }
+
+    .logo span {
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.35rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-cta button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.55rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(229, 9, 20, 0.6);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(16, 19, 26, 0.8);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: var(--accent-soft);
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 32rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-actions button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.7rem 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hero-meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      color: #808080;
+    }
+
+    .hero-meta-value {
+      color: var(--text-main);
+    }
+
+    .hero-poster {
+      position: relative;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 0, #ff4b5c 0, #05060a 40%, #000000 100%);
+      box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(229, 9, 20, 0.4);
+      min-height: 260px;
+    }
+
+    .hero-poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 40%);
+    }
+
+    .hero-poster-content {
+      position: absolute;
+      inset: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.6rem;
+    }
+
+    .hero-poster-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+    }
+
+    .hero-poster-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .hero-poster-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-poster-strip {
+      position: absolute;
+      inset: auto 1.2rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-poster-strip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .hero-poster-strip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .section-kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 26rem;
+    }
+
+    .section-link {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .section-link span {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .movie-card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+    }
+
+    .movie-poster {
+      height: 120px;
+      background: radial-gradient(circle at 30% 0, #ff4b5c 0, #05060a 40%, #000000 100%);
+    }
+
+    .movie-body {
+      padding: 0.75rem 0.8rem 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+
+    .movie-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .movie-genre {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .movie-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .movie-footer button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.35rem 0.8rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #ffffff;
+    }
+
+    .about-contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .about-block {
+      background: var(--bg-section);
+      border-radius: 1.2rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.5rem 1.5rem 1.7rem;
+    }
+
+    .about-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .about-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .about-item {
+      background: #151822;
+      border-radius: 0.9rem;
+      border: 1px solid var(--border-soft);
+      padding: 0.8rem 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .about-item-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .about-item-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .contact-block {
+      background: var(--bg-section);
+      border-radius: 1.2rem;
+      border: 1px solid var(--border-soft);
+      padding: 1.5rem 1.5rem 1.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-title {
+      font-size: 1.3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .contact-label {
+      color: #808080;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+    }
+
+    .contact-value {
+      color: var(--text-main);
+    }
+
+    .contact-form {
+      margin-top: 0.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+
+    .form-field label {
+      color: #808080;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      border-radius: 0.6rem;
+      border: 1px solid var(--border-soft);
+      background: var(--input-bg);
+      color: var(--text-main);
+      padding: 0.55rem 0.7rem;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .form-field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .form-submit button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 0.6rem 1.4rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(229, 9, 20, 0.6);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      background: #05060a;
+      margin-top: 1rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-col-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #aaaaaa;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .footer-list a {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .footer-list a:hover {
+      color: var(--text-main);
+    }
+
+    .newsletter {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .newsletter-text {
+      font-size: 0.8rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--input-bg);
+      color: var(--text-main);
+      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .newsletter-form button {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 0.5rem 1.1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+    }
+
+    .socials {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .social-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .social-pill:hover {
+      border-color: var(--accent-soft);
+      color: var(--text-main);
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-poster {
+        order: -1;
+      }
+
+      .movies-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .about-contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .movies-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-columns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .movies-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <nav class="nav">
+        <div class="logo">
+          <div class="logo-mark"></div>
+          <span>Cinema Doppler</span>
+        </div>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#now-showing">Now Showing</a>
+          <a href="#about">About Us</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-cta">
+          <button class="btn-outline">Sign In</button>
+          <button class="btn-primary">Book Tickets</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero / Home -->
+      <section id="home" class="hero">
+        <div>
+          <div class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            <span>Premium cinema experience</span>
+          </div>
+          <h1 class="hero-title">
+            Experience Cinema <span>Like Never Before</span>
+          </h1>
+          <p class="hero-subtitle">
+            Step into a world where every frame, every sound, and every moment is crafted to immerse you completely.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary">Book Tickets</button>
+            <button class="btn-outline">Watch Trailer</button>
+          </div>
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Location</span>
+              <span class="hero-meta-value">Film City, CA</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Screens</span>
+              <span class="hero-meta-value">8 Dolby Atmos Screens</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-label">Today</span>
+              <span class="hero-meta-value">15+ Shows Available</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-poster">
+          <div class="hero-poster-overlay"></div>
+          <div class="hero-poster-content">
+            <div class="hero-poster-tag">Featured Premiere</div>
+            <div class="hero-poster-title">Open Fire</div>
+            <div class="hero-poster-meta">Action · Thriller · 2h 10m</div>
+          </div>
+          <div class="hero-poster-strip">
+            <span>
+              <span class="hero-poster-strip-dot"></span>
+              Tonight · 7:30 PM
+            </span>
+            <span>Ultra HD · Dolby Atmos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Now Showing -->
+      <section id="now-showing" class="section">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-kicker">Now Showing</div>
+            <h2 class="section-title">Catch the latest blockbusters</h2>
+            <p class="section-subtitle">
+              From heart-pounding thrillers to sweeping romances, discover what’s lighting up the screens at Cinema Doppler.
+            </p>
+          </div>
+          <button class="section-link">
+            View all shows
+            <span>&rsaquo;</span>
+          </button>
+        </div>
+
+        <div class="movies-grid">
+          <article class="movie-card">
+            <div class="movie-poster"></div>
+            <div class="movie-body">
+              <div class="movie-title">Open Fire</div>
+              <div class="movie-genre">Action · Thriller</div>
+              <div class="movie-footer">
+                <span>2h 10m</span>
+                <button>Book Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="movie-card">
+            <div class="movie-poster"></div>
+            <div class="movie-body">
+              <div class="movie-title">Into the Shadows</div>
+              <div class="movie-genre">Mystery · Thriller</div>
+              <div class="movie-footer">
+                <span>1h 55m</span>
+                <button>Book Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="movie-card">
+            <div class="movie-poster"></div>
+            <div class="movie-body">
+              <div class="movie-title">Endless Love</div>
+              <div class="movie-genre">Romance · Drama</div>
+              <div class="movie-footer">
+                <span>2h 05m</span>
+                <button>Book Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="movie-card">
+            <div class="movie-poster"></div>
+            <div class="movie-body">
+              <div class="movie-title">Beyond Horizon</div>
+              <div class="movie-genre">Sci‑Fi · Adventure</div>
+              <div class="movie-footer">
+                <span>2h 20m</span>
+                <button>Book Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="movie-card">
+            <div class="movie-poster"></div>
+            <div class="movie-body">
+              <div class="movie-title">The Last Kingdom</div>
+              <div class="movie-genre">Fantasy · Adventure</div>
+              <div class="movie-footer">
+                <span>2h 15m</span>
+                <button>Book Now</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- About & Contact -->
+      <section class="section">
+        <div class="about-contact">
+          <!-- About -->
+          <div id="about" class="about-block">
+            <div class="section-kicker">About Us</div>
+            <h2 class="about-title">The Story Behind Cinema Doppler</h2>
+            <p class="about-text">
+              Cinema Doppler was born from a simple idea: movies should feel like worlds you step into, not just stories
+              you watch. We blend cutting‑edge technology, luxurious comfort, and thoughtful service to turn every visit
+              into an unforgettable experience.
+            </p>
+            <div class="about-grid">
+              <div class="about-item">
+                <div class="about-item-title">Our Mission</div>
+                <div class="about-item-text">
+                  To deliver extraordinary cinematic moments that stay with you long after the credits roll.
+                </div>
+              </div>
+              <div class="about-item">
+                <div class="about-item-title">Our Vision</div>
+                <div class="about-item-text">
+                  A future where every moviegoer feels like a VIP, no matter the seat or showtime.
+                </div>
+              </div>
+              <div class="about-item">
+                <div class="about-item-title">Our Values</div>
+                <div class="about-item-text">
+                  Immersion, innovation, hospitality, and a deep love for the art of storytelling.
+                </div>
+              </div>
+              <div class="about-item">
+                <div class="about-item-title">Our Story</div>
+                <div class="about-item-text">
+                  From a single screen to a city‑wide destination, we’ve grown with our community of film lovers.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div id="contact" class="contact-block">
+            <div class="section-kicker">Contact Us</div>
+            <h2 class="contact-title">Get In Touch</h2>
+
+            <div class="contact-grid">
+              <div class="contact-row">
+                <span class="contact-label">Address</span>
+                <span class="contact-value">123 Cinema Street, Film City, CA 90001</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">+1 (234) 556‑7980</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">info@cinemadoppler.com</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Opening Hours</span>
+                <span class="contact-value">Sun–Mon: 10:00 AM – 12:00 AM</span>
+              </div>
+            </div>
+
+            <form class="contact-form">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="name">Name</label>
+                  <input id="name" type="text" placeholder="Your full name" />
+                </div>
+                <div class="form-field">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" placeholder="you@example.com" />
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="subject">Subject</label>
+                <input id="subject" type="text" placeholder="What would you like to talk about?" />
+              </div>
+              <div class="form-field">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Type your message here..."></textarea>
+              </div>
+              <div class="form-submit">
+                <button type="submit">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-columns">
+          <div>
+            <div class="footer-col-title">Quick Links</div>
+            <ul class="footer-list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#now-showing">Now Showing</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer-col-title">Theatre Locations</div>
+            <ul class="footer-list">
+              <li><a href="#">New York</a></li>
+              <li><a href="#">Los Angeles</a></li>
+              <li><a href="#">Chicago</a></li>
+              <li><a href="#">Houston</a></li>
+              <li><a href="#">Phoenix</a></li>
+            </ul>
+          </div>
+          <div class="newsletter">
+            <div class="footer-col-title">Newsletter</div>
+            <p class="newsletter-text">
+              Get early access to premieres, special screenings, and exclusive offers straight to your inbox.
+            </p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Enter your email" />
+              <button type="button">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; <span id="year"></span> Cinema Doppler. All rights reserved.</span>
+          <div class="socials">
+            <div class="social-pill">F</div>
+            <div class="social-pill">T</div>
+            <div class="social-pill">I</div>
+            <div class="social-pill">Y</div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
-  <div class = 'right'>
-    <img src = 'images/tacoman.png' alt = 'taco logo'>
-  </div>
-  <div>
-    <h3>When our founder went back to the future in the 70 bc, they came back with the beef-inspired special taco filler Beef-ish that kept late night party
-    with the taconin way!</h3>
-    <h6>tacobombit is the special expeience that would be intestinanly devastating properties all over the internet. it is a  food that never format cheese-content and so good you will never exit the bathrooom in your life!</h6>
-  </div>
-  <footer>
-    <h6> Taco bomb @copy some rights reserved</h1>
-  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
-
-
 </html>
